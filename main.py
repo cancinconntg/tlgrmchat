@@ -17,6 +17,7 @@ def ban_new_chat_members(message):
                 pass
     bot.delete_message(chat.id, message.message_id)
 
+
 @bot.message_handler(content_types=['text'])
 def ban_spam_member(message):
     if message.from_user.username != 'styr2245':
@@ -28,5 +29,12 @@ def ban_spam_member(message):
         except Exception:
             pass
         bot.delete_message(chat.id, message.message_id)
+
+
+@bot.message_handler(content_types=['left_chat_member'])
+def delete_left_user_message(message):
+    chat = message.chat
+    bot.delete_message(chat.id, message.message_id)
+
 
 bot.polling()
