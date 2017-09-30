@@ -11,9 +11,13 @@ def ban_new_chat_members(message):
         print(new_member)
         if new_member.username != 'styr2245':
             try:
-                bot.restrict_chat_member(chat.id, new_member.id, can_send_messages=False)
-                print('Заблокирован пользователь: {}'.format(new_member.first_name))
-            except Exception:
+                if str.lower(new_member.first_name) == 'стив':
+                    continue
+                else:
+                    bot.restrict_chat_member(chat.id, new_member.id, can_send_messages=False)
+                    print('Заблокирован пользователь: {}'.format(new_member.first_name))
+            except Exception as ex:
+                print(ex)
                 pass
     bot.delete_message(chat.id, message.message_id)
 
