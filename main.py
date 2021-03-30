@@ -1,5 +1,4 @@
 from telethon.tl.types import ChannelParticipantsAdmins
-from userbot.cmdhelp import CmdHelp
 from telethon.events import NewMessage
 from userbot.events import register
 from userbot import bot
