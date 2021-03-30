@@ -1,44 +1,24 @@
+from telethon.tl.types import ChannelParticipantsAdmins
+from userbot.cmdhelp import CmdHelp
+from telethon.events import NewMessage
+from userbot.events import register
+from userbot import bot
+from asyncio import sleep 
+
 import telebot
 
-bot = telebot.TeleBot('442140691:AAHTw0blVdBKwrqoImAS-oLw2yd0lv4cd9s')
+bot = telebot.TeleBot('1673894668:AAFGDY8zeBKDFhGs2jUzZBL8-NySaoy204g')
 
 
-@bot.message_handler(content_types=['new_chat_members'])
-def ban_new_chat_members(message):
-    new_chat_members = message.new_chat_members
-    chat = message.chat
-    for new_member in new_chat_members:
-        print(new_member)
-        if new_member.username != 'styr2245':
-            try:
-                if str.lower(new_member.first_name) == 'стив':
-                    continue
-                else:
-                    bot.restrict_chat_member(chat.id, new_member.id, can_send_messages=False)
-                    print('Заблокирован пользователь: {}'.format(new_member.first_name))
-            except Exception as ex:
-                print(ex)
-                pass
-    bot.delete_message(chat.id, message.message_id)
+@bot.message_handler(content_types=['cmd_call_admins'])
+def cmd_call_admins(bot, update):
+    users = telebot.get_participants(1001472566181)
+print(users[0].first_name)
 
-
-@bot.message_handler(content_types=['text'])
-def ban_spam_member(message):
-    if message.from_user.username != 'styr2245':
-        chat_member = message.from_user
-        chat = message.chat
-        try:
-            bot.restrict_chat_member(chat.id, chat_member.id, can_send_messages=False)
-            print('Заблокирован пользователь: {}'.format(chat_member.first_name))
-        except Exception:
-            pass
-        bot.delete_message(chat.id, message.message_id)
-
-
-@bot.message_handler(content_types=['left_chat_member'])
-def delete_left_user_message(message):
-    chat = message.chat
-    bot.delete_message(chat.id, message.message_id)
-
+for user in users:
+    if user.username is not None:
+        print(user.username)
+        telebot.send_message(1001472566181, "@{}".format(user.username))
+        time.sleep(2)
 
 bot.polling()
