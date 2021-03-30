@@ -1,7 +1,5 @@
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon.events import NewMessage
-from userbot.events import register
-from userbot import bot
 from asyncio import sleep 
 
 import telebot
